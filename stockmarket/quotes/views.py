@@ -1,4 +1,10 @@
 from django.shortcuts import render
+from . polygon.tickers import Tickers
+import dotenv
+import os
+
+# TODO: Refactor how we load the secrets file
+dotenv.load_dotenv("/Users/peter/Repositories/StockMarketWebApp/secrets.env")
 
 
 def home(request):
@@ -9,7 +15,9 @@ def home(request):
     Returns:
         HttpResponse: Rendered home page template.
     """
-    return render(request, 'home.html', {})
+    ticker = Tickers(api_key=os.getenv("POLYGON_API_KEY"))
+    api_response = ticker.get_specific_ticker(ticker="AAPL")
+    return render(request, 'home.html', {'api_response': api_response})
 
 
 def about(request):

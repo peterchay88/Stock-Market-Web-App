@@ -1,6 +1,9 @@
-from polygon.polygon_api import PolygonRequests
+# TODO: Resolve absolute import statements
+# from stockmarket.quotes.polygon.polygon_api import PolygonRequests
+
+from . polygon_api import PolygonRequests
 from enum import Enum
-from logging_config.logging_config import logging
+from .. logging_config.logging_config import logging
 
 logger = logging.getLogger(__name__)
 
@@ -9,7 +12,7 @@ class TickerEndpoint(Enum):
     """
     Enum class for Ticker API endpoints.
     """
-    TICKERS = "v3/reference/tickers"
+    TICKERS = "v3/reference/tickers/"
 
 
 class Tickers(PolygonRequests):
@@ -30,7 +33,7 @@ class Tickers(PolygonRequests):
         :param ticker: Ticker to get information for.
         :return:
         """
-        response = self.get(endpoint=f"{TickerEndpoint.TICKERS.value}?ticker={ticker}")
+        response = self.get(endpoint=f"{TickerEndpoint.TICKERS.value}{ticker}")
         return response.json()
 
 

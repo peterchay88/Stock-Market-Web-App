@@ -30,15 +30,16 @@ class PolygonRequests:
         self.__base_url = value
 
     @staticmethod
-    def __assert_status_code(expected_status_code: int, returned_status_code: int):
+    def __assert_status_code(expected_status_code: int, response: Response):
         """
         Asserts that the returned status code matches the expected status code.
         :param expected_status_code: Expected HTTP status code.
-        :param returned_status_code: Actual returned HTTP status code.
+        :param response: Response object
         :return:
         """
-        assert expected_status_code == returned_status_code, \
-            f"Expected status code {expected_status_code}, but got {returned_status_code}."
+        assert expected_status_code == response.status_code, \
+            f"Expected status code {expected_status_code}, but got {response.status_code}." \
+            f"Response Body: {response.json()}"
 
     def get(self, endpoint: str) -> Response:
         """
@@ -46,8 +47,8 @@ class PolygonRequests:
         :param endpoint: Endpoint to hit.
         :return: Response object
         """
-        response = requests.get(url=f"{self.base_url}{endpoint}&apiKey={self.__api_key}")
+        response = requests.get(url=f"{self.base_url}{endpoint}?apiKey={self.__api_key}")
         # TODO: Add logic for checking if API KEY exists then redact it
         logger.info(f"{self.base_url}{endpoint}&apiKey=*****")
-        self.__assert_status_code(expected_status_code=200, returned_status_code=response.status_code)
+        self.__assert_status_code(expected_status_code=200, response=response)
         return response
