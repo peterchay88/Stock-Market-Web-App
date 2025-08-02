@@ -3,7 +3,7 @@ from . polygon.tickers import Tickers
 import dotenv
 import os
 
-# TODO: Refactor how we load the secrets file
+# TODO: Refactor how we load the secrets file, currently only works on my local machine
 dotenv.load_dotenv("/Users/peter/Repositories/StockMarketWebApp/secrets.env")
 
 
