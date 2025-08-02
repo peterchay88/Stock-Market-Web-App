@@ -3,8 +3,9 @@
 # from stockmarket.quotes.logging_config.logging_config import logging
 
 from . polygon_api import PolygonRequests
-from enum import Enum
 from .. logging_config.logging_config import logging
+
+from enum import Enum
 
 logger = logging.getLogger(__name__)
 

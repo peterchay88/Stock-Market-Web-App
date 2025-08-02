@@ -5,9 +5,21 @@
 <br>
 <br>
 
-{{ api_response.results.ticker }}
+{{ api_response.ticker }}
 <br>
-{{ api_response.results.description }}
+{{ api_response.description }}
+
+<br>
+<br>
+
+{% for key, value in api_response.items %}
+
+<p>
+    {{ key }}:
+    <br>
+    {{ value }}
+</p>
+{% endfor %}
 
 {% endblock %}
 

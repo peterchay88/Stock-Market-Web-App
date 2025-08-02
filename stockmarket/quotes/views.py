@@ -17,7 +17,7 @@ def home(request):
     """
     ticker = Tickers(api_key=os.getenv("POLYGON_API_KEY"))
     api_response = ticker.get_specific_ticker(ticker="AAPL")
-    return render(request, 'home.html', {'api_response': api_response})
+    return render(request, 'home.html', {'api_response': api_response['results']})
 
 
 def about(request):
