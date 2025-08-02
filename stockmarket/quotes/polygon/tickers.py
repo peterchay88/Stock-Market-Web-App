@@ -1,5 +1,6 @@
 # TODO: Resolve absolute import statements
 # from stockmarket.quotes.polygon.polygon_api import PolygonRequests
+# from stockmarket.quotes.logging_config.logging_config import logging
 
 from . polygon_api import PolygonRequests
 from enum import Enum
@@ -38,7 +39,7 @@ class Tickers(PolygonRequests):
 
 
 if __name__ == "__main__":
-    # Example usage
+    # Example usage (When testing directly update package imports to absolute paths. See top of script)
     import os
     import dotenv
 
