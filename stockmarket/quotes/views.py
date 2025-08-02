@@ -17,7 +17,11 @@ def home(request):
     """
     ticker = Tickers(api_key=os.getenv("POLYGON_API_KEY"))
     api_response = ticker.get_specific_ticker(ticker="AAPL")
-    return render(request, 'home.html', {'api_response': api_response['results']})
+    return render(
+        request,
+        template_name='home.html',
+        context={'api_response': api_response['results']}
+    )
 
 
 def about(request):
@@ -28,4 +32,8 @@ def about(request):
     Returns:
         HttpResponse: Rendered about page template.
     """
-    return render(request, 'about.html', {})
+    return render(
+        request,
+        template_name='about.html',
+        context={}
+    )
