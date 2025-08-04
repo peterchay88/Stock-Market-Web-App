@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 
+
+{% if No_ticker %}  <!-- If no ticker is provided show search info  -->
+    <h1>{{ No_ticker }}</h1>
+{% endif%}
+
 <br>
-<h1>{{ api_response.ticker }}</h1>
+<h1>{{ api_response.name }}</h1>
 <br>
 {{ api_response.description }}
 

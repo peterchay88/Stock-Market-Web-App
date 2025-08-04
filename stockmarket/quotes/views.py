@@ -15,13 +15,21 @@ def home(request):
     Returns:
         HttpResponse: Rendered home page template.
     """
-    ticker = Tickers(api_key=os.getenv("POLYGON_API_KEY"))
-    api_response = ticker.get_specific_ticker(ticker="AAPL")
-    return render(
-        request,
-        template_name='home.html',
-        context={'api_response': api_response['results']}
-    )
+    if request.method == 'POST':
+        search_ticker = request.POST['ticker']
+        ticker = Tickers(api_key=os.getenv("POLYGON_API_KEY"))
+        api_response = ticker.get_specific_ticker(ticker=search_ticker.upper())
+        return render(
+            request=request,
+            template_name='home.html',
+            context={'api_response': api_response['results']}
+        )
+    else:
+        return render(
+            request=request,
+            template_name='home.html',
+            context={'No_ticker': "Enter a ticker symbol to get information"}
+        )
 
 
 def about(request):
