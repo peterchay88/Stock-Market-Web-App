@@ -6,6 +6,10 @@
     <h1>{{ No_ticker }}</h1>
 {% endif%}
 
+{% if error_response %}  <!-- If there is an error processing the request.  -->
+    <h1>{{ error_response }}</h1>
+{% endif%}
+
 <br>
 <h1>{{ api_response.name }}</h1>
 <br>

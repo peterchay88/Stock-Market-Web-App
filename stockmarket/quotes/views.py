@@ -19,11 +19,18 @@ def home(request):
         search_ticker = request.POST['ticker']
         ticker = Tickers(api_key=os.getenv("POLYGON_API_KEY"))
         api_response = ticker.get_specific_ticker(ticker=search_ticker.upper())
-        return render(
-            request=request,
-            template_name='home.html',
-            context={'api_response': api_response['results']}
-        )
+        if ticker.assert_status_code(expected_status_code=200, response=api_response):
+            return render(
+                request=request,
+                template_name='home.html',
+                context={'api_response': api_response.json()['results']}
+            )
+        else:
+            return render(
+                request=request,
+                template_name='home.html',
+                context={'error_response': "There was an issue processing your request. Please try again."}
+            )
     else:
         return render(
             request=request,

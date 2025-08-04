@@ -36,7 +36,7 @@ class Tickers(PolygonRequests):
         :return:
         """
         response = self.get(endpoint=f"{TickerEndpoint.TICKERS.value}{ticker}")
-        return response.json()
+        return response
 
 
 if __name__ == "__main__":
