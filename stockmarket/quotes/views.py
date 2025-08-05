@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . polygon.tickers import Tickers
 import dotenv
 import os
+from . models import Stock
+from django.contrib import messages as message
+from . forms import StockForm
 
 # TODO: Refactor how we load the secrets file, currently only works on my local machine
 dotenv.load_dotenv("/Users/peter/Repositories/StockMarketWebApp/secrets.env")
@@ -62,8 +65,17 @@ def add_stock(request):
     Returns:
         HttpResponse: Rendered add stock page template.
     """
-    return render(
-        request=request,
-        template_name='add_stock.html',
-        context={}
-    )
+    if request.method == 'POST':
+        form = StockForm(request.POST or None)
+
+        if form.is_valid():
+            form.save()
+            message.success(request, "Stock added successfully!")
+            return redirect('add_stock')
+    else:
+        ticker = Stock.objects.all()
+        return render(
+            request=request,
+            template_name='add_stock.html',
+            context={'ticker': ticker}
+        )
