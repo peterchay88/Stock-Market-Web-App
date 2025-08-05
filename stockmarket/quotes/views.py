@@ -16,7 +16,7 @@ def home(request):
         HttpResponse: Rendered home page template.
     """
     if request.method == 'POST':
-        search_ticker = request.POST['ticker']
+        search_ticker = request.POST['ticker_symbol']
         ticker = Tickers(api_key=os.getenv("POLYGON_API_KEY"))
         api_response = ticker.get_specific_ticker(ticker=search_ticker.upper())
         if ticker.assert_status_code(expected_status_code=200, response=api_response):
@@ -48,7 +48,22 @@ def about(request):
         HttpResponse: Rendered about page template.
     """
     return render(
-        request,
+        request=request,
         template_name='about.html',
+        context={}
+    )
+
+
+def add_stock(request):
+    """
+    Render the add stock page of the stock market application.
+    Args:
+        request: The HTTP request object.
+    Returns:
+        HttpResponse: Rendered add stock page template.
+    """
+    return render(
+        request=request,
+        template_name='add_stock.html',
         context={}
     )
